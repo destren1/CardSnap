@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { AppHeader } from "./components/app-header/app-header";
+import { Footer } from "./components/footer/footer";
+import { useDispatch, useSelector } from "./services/store";
+import { getAllCards, getCards } from "./services/cardsSlice";
+import { CardList } from "./components/card-list/card-list";
 
 function App() {
+	const dispatch = useDispatch()
+	const cards = useSelector(getAllCards)
+
+	useEffect(() => {
+		dispatch(getCards())
+	},[dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AppHeader />
+			<CardList cards={cards}/>
+      <Footer />
     </div>
   );
 }
