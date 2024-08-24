@@ -7,27 +7,34 @@ export const getCards = createAsyncThunk("cards/getAll", async () =>
 
 export interface UnsplashPhoto {
   id: string;
-  width: number;
-  height: number;
   alt_description: string;
   likes: string;
   urls: {
-    raw: string;
     full: string;
     regular: string;
     small: string;
-    thumb: string;
   };
+  isLiked: boolean;
 }
 
 interface TCards {
   cards: UnsplashPhoto[];
+  card: UnsplashPhoto;
+  showOnlyLiked: boolean;
   request: boolean;
   pending: boolean;
 }
 
 export const initialState: TCards = {
   cards: [],
+  card: {
+    id: "",
+    alt_description: "",
+    likes: "",
+    urls: { full: "", regular: "", small: "" },
+    isLiked: false,
+  },
+  showOnlyLiked: false,
   request: true,
   pending: true,
 };
@@ -40,9 +47,42 @@ export const cardsSlice = createSlice({
       const _id = action.payload;
       state.cards = state.cards.filter((card) => card.id !== _id);
     },
+    getCardById: (state, action) => {
+      const _id = action.payload;
+      state.card =
+        state.cards.find((card) => card.id === _id) || initialState.card;
+    },
+    likeCard: (state, action) => {
+      // Из-за ограниченного количества запросов к API и особенностей проекта, связанного со случайным обновлением карточек,
+      // было принято решение управлять лайками локально для повышения эффективности и снижения нагрузки на сервер.
+      const { id, liked } = action.payload;
+
+      const card = state.cards.find((card) => card.id === id);
+
+      if (card) {
+        let likeCount = parseInt(card.likes, 10);
+
+        if (liked) {
+          likeCount--;
+          card.isLiked = false;
+        } else {
+          likeCount++;
+          card.isLiked = true;
+        }
+
+        card.likes = likeCount.toString();
+      }
+    },
+    setOnlyShowLiked: (state) => {
+      state.showOnlyLiked = !state.showOnlyLiked;
+    },
   },
   selectors: {
     getAllCards: (state) => state.cards,
+    getCard: (state) => state.card,
+    getShowOnlyLikedState: (state) => state.showOnlyLiked,
+		getPendingState: (state) => state.pending,
+		getRequestState: (state) => state.request
   },
   extraReducers: (builder) => {
     builder.addCase(getCards.fulfilled, (state, action) => {
@@ -59,5 +99,7 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { getAllCards } = cardsSlice.selectors;
-export const { deleteCardById } = cardsSlice.actions;
+export const { getAllCards, getCard, getShowOnlyLikedState, getPendingState, getRequestState } =
+  cardsSlice.selectors;
+export const { deleteCardById, getCardById, likeCard, setOnlyShowLiked } =
+  cardsSlice.actions;

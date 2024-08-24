@@ -1,52 +1,51 @@
-import { FC, useState } from "react";
-import styles from "./card.module.scss";
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { CardUI } from "../ui/card/cardUI";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteCardById,
+  getAllCards,
+  likeCard,
+} from "../../services/cardsSlice";
 
 interface CardProps {
   id: string;
   title: string;
   imageUrl: string;
-	likes: string;
-  onCardClick: () => void;
-  onDelete: (id: string) => void;
+  likes: string;
 }
 
-export const Card: FC<CardProps> = ({
-  id,
-  title,
-  imageUrl,
-	likes,
-  onCardClick,
-  onDelete,
-}) => {
-  const [isLiked, setIsLiked] = useState(false);
+export const Card: FC<CardProps> = ({ id, title, imageUrl, likes }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cards = useSelector(getAllCards);
+  const card = cards.find((card) => card.id === id);
+  const isLiked = card?.isLiked;
+
+  const onCardClick = (id: string) => {
+    navigate(`/${id}`);
+  };
 
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
+    dispatch(likeCard({ id, liked: isLiked }));
   };
 
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onDelete(id);
+    dispatch(deleteCardById(id));
   };
 
   return (
-    <li className={styles.card} onClick={onCardClick}>
-      <img className={styles.card__image} src={imageUrl} alt={title} />
-      <button type="button" className={styles["card__delete-button"]} onClick={handleDeleteClick}></button>
-      <div className={styles.card__description}>
-        <h2 className={styles.card__title}>{title}</h2>
-        <div className={styles.card__container}>
-          <button
-            type="button"
-            className={`${styles["card__like-button"]} ${
-              isLiked ? styles["card__like-button--is-active"] : ""
-            }`}
-            onClick={handleLikeClick}
-          ></button>
-          <p className={styles.card__likes}>{likes}</p>
-        </div>
-      </div>
-    </li>
+    <CardUI
+      id={id}
+      title={title}
+      imageUrl={imageUrl}
+      likes={likes}
+      onCardClick={onCardClick}
+      handleLikeClick={handleLikeClick}
+      handleDeleteClick={handleDeleteClick}
+      isLiked={isLiked}
+    />
   );
 };

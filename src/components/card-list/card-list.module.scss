@@ -1,10 +1,23 @@
+@import "../../assets/variables.scss";
+
 .list {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  min-height: 80vh;
-  background-color: #f5e8d8;
+  flex-grow: 1;
+  height: 100%;
+  padding-block-start: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding-top: 20px;
+  height: 100%;
+  font-size: 30px;
+  font-family: $main-font;
 }
