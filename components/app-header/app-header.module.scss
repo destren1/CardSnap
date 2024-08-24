@@ -1,0 +1,15 @@
+@import "../../assets/variables.scss";
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: $primary-color;
+
+  &__title {
+    font-size: clamp(2.188rem, 2.014rem + 0.926vi, 3.125rem);
+		font-family: $main-font;
+    color: $secondary-color;
+  }
+}
