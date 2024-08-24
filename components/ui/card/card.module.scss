@@ -1,6 +1,8 @@
+@import "../../../assets/variables.scss";
+
 .card {
-	width: 300px;
-  font-family: 'Inter', Arial, sans-serif;
+  width: 300px;
+  font-family: $main-font;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -38,7 +40,8 @@
   &__like-button {
     width: 21px;
     height: 18px;
-    background: transparent url('../../../assets/images/like-inactive.svg') no-repeat;
+    background: transparent url("../../../assets/images/like-inactive.svg")
+      no-repeat;
     background-size: 21px 18px;
     border: none;
     cursor: pointer;
@@ -51,7 +54,7 @@
     }
 
     &--is-active {
-      background: transparent url('../../../assets/images/like-active.svg');
+      background: transparent url("../../../assets/images/like-active.svg");
     }
   }
 
@@ -65,7 +68,8 @@
   &__delete-button {
     width: 18px;
     height: 18px;
-    background: transparent url('../../../assets/images/delete-icon.svg') center no-repeat;
+    background: transparent url("../../../assets/images/delete-icon.svg") center
+      no-repeat;
     background-size: 18px 18px;
     border: none;
     cursor: pointer;

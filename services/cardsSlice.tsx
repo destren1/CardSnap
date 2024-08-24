@@ -48,6 +48,25 @@ export const cardsSlice = createSlice({
       state.card =
         state.cards.find((card) => card.id === _id) || initialState.card;
     },
+    likeCard: (state, action) => {
+      // Из-за ограниченного количества запросов к API и особенностей проекта, связанного со случайным обновлением карточек,
+      // было принято решение управлять лайками локально для повышения эффективности и снижения нагрузки на сервер.
+			const { id, liked } = action.payload;
+
+      const card = state.cards.find((card) => card.id === id);
+
+      if (card) {
+        let likeCount = parseInt(card.likes, 10);
+
+        if (liked) {
+          likeCount--;
+        } else {
+          likeCount++;
+        }
+
+        card.likes = likeCount.toString();
+      }
+    },
   },
   selectors: {
     getAllCards: (state) => state.cards,
@@ -69,4 +88,4 @@ export const cardsSlice = createSlice({
 });
 
 export const { getAllCards, getCard } = cardsSlice.selectors;
-export const { deleteCardById, getCardById } = cardsSlice.actions;
+export const { deleteCardById, getCardById, likeCard } = cardsSlice.actions;
