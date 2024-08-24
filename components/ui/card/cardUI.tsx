@@ -8,7 +8,7 @@ interface CardProps {
   likes: string;
   onCardClick: (id: string) => void;
   handleDeleteClick: (e: React.MouseEvent) => void;
-  isLiked: boolean;
+  isLiked: boolean | undefined;
   handleLikeClick: (e: React.MouseEvent) => void;
 }
 

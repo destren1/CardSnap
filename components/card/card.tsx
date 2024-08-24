@@ -1,8 +1,12 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardUI } from "../ui/card/cardUI";
-import { useDispatch } from "react-redux";
-import { deleteCardById, likeCard } from "../../services/cardsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteCardById,
+  getAllCards,
+  likeCard,
+} from "../../services/cardsSlice";
 
 interface CardProps {
   id: string;
@@ -12,9 +16,11 @@ interface CardProps {
 }
 
 export const Card: FC<CardProps> = ({ id, title, imageUrl, likes }) => {
-  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const cards = useSelector(getAllCards);
+  const card = cards.find((card) => card.id === id);
+  const isLiked = card?.isLiked;
 
   const onCardClick = (id: string) => {
     navigate(`/${id}`);
@@ -22,7 +28,6 @@ export const Card: FC<CardProps> = ({ id, title, imageUrl, likes }) => {
 
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
     dispatch(likeCard({ id, liked: isLiked }));
   };
 

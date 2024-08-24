@@ -14,11 +14,13 @@ export interface UnsplashPhoto {
     regular: string;
     small: string;
   };
+  isLiked: boolean;
 }
 
 interface TCards {
   cards: UnsplashPhoto[];
   card: UnsplashPhoto;
+  showOnlyLiked: boolean;
   request: boolean;
   pending: boolean;
 }
@@ -30,7 +32,9 @@ export const initialState: TCards = {
     alt_description: "",
     likes: "",
     urls: { full: "", regular: "", small: "" },
+    isLiked: false,
   },
+  showOnlyLiked: false,
   request: true,
   pending: true,
 };
@@ -51,7 +55,7 @@ export const cardsSlice = createSlice({
     likeCard: (state, action) => {
       // Из-за ограниченного количества запросов к API и особенностей проекта, связанного со случайным обновлением карточек,
       // было принято решение управлять лайками локально для повышения эффективности и снижения нагрузки на сервер.
-			const { id, liked } = action.payload;
+      const { id, liked } = action.payload;
 
       const card = state.cards.find((card) => card.id === id);
 
@@ -60,17 +64,23 @@ export const cardsSlice = createSlice({
 
         if (liked) {
           likeCount--;
+          card.isLiked = false;
         } else {
           likeCount++;
+          card.isLiked = true;
         }
 
         card.likes = likeCount.toString();
       }
     },
+    setOnlyShowLiked: (state) => {
+      state.showOnlyLiked = !state.showOnlyLiked;
+    },
   },
   selectors: {
     getAllCards: (state) => state.cards,
     getCard: (state) => state.card,
+    getShowOnlyLikedState: (state) => state.showOnlyLiked,
   },
   extraReducers: (builder) => {
     builder.addCase(getCards.fulfilled, (state, action) => {
@@ -87,5 +97,7 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { getAllCards, getCard } = cardsSlice.selectors;
-export const { deleteCardById, getCardById, likeCard } = cardsSlice.actions;
+export const { getAllCards, getCard, getShowOnlyLikedState } =
+  cardsSlice.selectors;
+export const { deleteCardById, getCardById, likeCard, setOnlyShowLiked } =
+  cardsSlice.actions;
