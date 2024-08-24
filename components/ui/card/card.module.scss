@@ -38,7 +38,7 @@
   &__like-button {
     width: 21px;
     height: 18px;
-    background: transparent url('../../assets/images/like-inactive.svg') no-repeat;
+    background: transparent url('../../../assets/images/like-inactive.svg') no-repeat;
     background-size: 21px 18px;
     border: none;
     cursor: pointer;
@@ -51,7 +51,7 @@
     }
 
     &--is-active {
-      background: transparent url('../../assets/images/like-active.svg') no-repeat;
+      background: transparent url('../../../assets/images/like-active.svg');
     }
   }
 
@@ -65,7 +65,7 @@
   &__delete-button {
     width: 18px;
     height: 18px;
-    background: transparent url('../../assets/images/delete-icon.svg') center no-repeat;
+    background: transparent url('../../../assets/images/delete-icon.svg') center no-repeat;
     background-size: 18px 18px;
     border: none;
     cursor: pointer;
@@ -78,10 +78,6 @@
 
     &:hover {
       opacity: 0.6;
-    }
-
-    &--hidden {
-      display: none;
     }
   }
 }

@@ -7,27 +7,30 @@ export const getCards = createAsyncThunk("cards/getAll", async () =>
 
 export interface UnsplashPhoto {
   id: string;
-  width: number;
-  height: number;
   alt_description: string;
   likes: string;
   urls: {
-    raw: string;
     full: string;
     regular: string;
     small: string;
-    thumb: string;
   };
 }
 
 interface TCards {
   cards: UnsplashPhoto[];
+  card: UnsplashPhoto;
   request: boolean;
   pending: boolean;
 }
 
 export const initialState: TCards = {
   cards: [],
+  card: {
+    id: "",
+    alt_description: "",
+    likes: "",
+    urls: { full: "", regular: "", small: "" },
+  },
   request: true,
   pending: true,
 };
@@ -40,9 +43,15 @@ export const cardsSlice = createSlice({
       const _id = action.payload;
       state.cards = state.cards.filter((card) => card.id !== _id);
     },
+    getCardById: (state, action) => {
+      const _id = action.payload;
+      state.card =
+        state.cards.find((card) => card.id === _id) || initialState.card;
+    },
   },
   selectors: {
     getAllCards: (state) => state.cards,
+    getCard: (state) => state.card,
   },
   extraReducers: (builder) => {
     builder.addCase(getCards.fulfilled, (state, action) => {
@@ -59,5 +68,5 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { getAllCards } = cardsSlice.selectors;
-export const { deleteCardById } = cardsSlice.actions;
+export const { getAllCards, getCard } = cardsSlice.selectors;
+export const { deleteCardById, getCardById } = cardsSlice.actions;
