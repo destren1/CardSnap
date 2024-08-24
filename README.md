@@ -1,4 +1,4 @@
-# SnapShare
+# CardSnap
 
 ## Краткое описание
 
