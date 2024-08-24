@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/CardSnap/static/css/main.1dfb88fa.css",
+    "main.js": "/CardSnap/static/js/main.e37d12ab.js",
+    "static/media/like-inactive.svg": "/CardSnap/static/media/like-inactive.df0c965524717a3fd8e9.svg",
+    "index.html": "/CardSnap/index.html",
+    "static/media/delete-icon.svg": "/CardSnap/static/media/delete-icon.2af49b82d305a6ea3442.svg",
+    "static/media/like-active.svg": "/CardSnap/static/media/like-active.a7ffe37dcb927ba0c46c.svg",
+    "main.1dfb88fa.css.map": "/CardSnap/static/css/main.1dfb88fa.css.map",
+    "main.e37d12ab.js.map": "/CardSnap/static/js/main.e37d12ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1dfb88fa.css",
+    "static/js/main.e37d12ab.js"
+  ]
+}
