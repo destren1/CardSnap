@@ -81,6 +81,8 @@ export const cardsSlice = createSlice({
     getAllCards: (state) => state.cards,
     getCard: (state) => state.card,
     getShowOnlyLikedState: (state) => state.showOnlyLiked,
+		getPendingState: (state) => state.pending,
+		getRequestState: (state) => state.request
   },
   extraReducers: (builder) => {
     builder.addCase(getCards.fulfilled, (state, action) => {
@@ -97,7 +99,7 @@ export const cardsSlice = createSlice({
   },
 });
 
-export const { getAllCards, getCard, getShowOnlyLikedState } =
+export const { getAllCards, getCard, getShowOnlyLikedState, getPendingState, getRequestState } =
   cardsSlice.selectors;
 export const { deleteCardById, getCardById, likeCard, setOnlyShowLiked } =
   cardsSlice.actions;

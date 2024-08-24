@@ -3,14 +3,14 @@
 .cardsPage {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   padding: 20px;
   min-height: 80vh;
   background-color: $secondary-color;
 
   &__filter {
     display: flex;
-    justify-items: center;
+    justify-self: center;
     align-self: center;
     gap: 10px;
     max-width: 230px;
