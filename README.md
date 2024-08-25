@@ -4,9 +4,9 @@
 
 <p align="Left">Платформа для просмотра изображений ,их описаний с возможностью лайкать, удалять и просматривать карточки в полном размере.</p>
 
-<a  href="" target="_blank" align="center"><img src="./src/assets/images/CardSnapFast_1.gif" width="100%" alt="Гифка с обзором сайта"></a>
+<a  href="https://destren1.github.io/CardSnap/" target="_blank" align="center"><img src="./src/assets/images/CardSnapFast_1.gif" width="100%" alt="Гифка с обзором сайта"></a>
 
-[Открыть в браузере]()
+[Открыть в браузере](https://destren1.github.io/CardSnap/)
 
 ## Функционал:
 
